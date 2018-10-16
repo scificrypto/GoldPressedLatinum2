@@ -1,0 +1,11 @@
+[Unit]
+Description=goldpressedlatinum daemon serivce
+After=network.target
+
+[Service]
+Type=simple
+User=goldpressedlatinum
+ExecStart=/opt/goldpressedlatinum/goldpressedlatinumd
+
+[Install]
+WantedBy=multi-user.target

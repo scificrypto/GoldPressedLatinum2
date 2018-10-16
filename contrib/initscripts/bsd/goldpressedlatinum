@@ -1,0 +1,68 @@
+#!/bin/sh
+
+# PROVIDE: goldpressedlatinum
+# REQUIRE: LOGIN
+# KEYWORD: shutdown
+
+#
+# Add the following lines to /etc/rc.conf.local or /etc/rc.conf
+# to enable this service:
+#
+# goldpressedlatinum_enable (bool): Set to NO by default. Set this variable to YES if you want to enable goldpressedlatinum service.
+# goldpressedlatinum_config (path): Set to /usr/local/etc/goldpressedlatinum.conf by default.
+# goldpressedlatinum_user:  The user account goldpressedlatinum daemon runs as. It uses 'root' user by default.
+# goldpressedlatinum_group: The group account goldpressedlatinum daemon runs as. It uses 'wheel' group by default.
+# goldpressedlatinum_datadir (str): Default to "/var/db/goldpressedlatinum". Base data directory.
+
+. /etc/rc.subr
+
+name=goldpressedlatinum
+rcvar=goldpressedlatinum_enable
+
+: ${goldpressedlatinum_enable:=NO}
+: ${goldpressedlatinum_config=/usr/local/etc/goldpressedlatinum.conf}
+: ${goldpressedlatinum_datadir=/var/db/goldpressedlatinum}
+: ${goldpressedlatinum_user="root"}
+: ${goldpressedlatinum_group="wheel"}
+
+required_files=${goldpressedlatinum_config}
+command=/usr/local/bin/goldpressedlatinumd
+goldpressedlatinum_chdir=${goldpressedlatinum_datadir}
+pidfile="${goldpressedlatinum_datadir}/goldpressedlatinumd.pid"
+stop_cmd=goldpressedlatinum_stop
+command_args="-conf=${goldpressedlatinum_config} -datadir=${goldpressedlatinum_datadir} -daemon -pid=${pidfile}"
+start_precmd="${name}_prestart"
+
+goldpressedlatinum_create_datadir()
+{
+	echo "Creating data directory"
+	eval mkdir -p ${goldpressedlatinum_datadir}
+	[ $? -eq 0 ] && chown -R ${goldpressedlatinum_user}:${goldpressedlatinum_group} ${goldpressedlatinum_datadir}
+}
+
+goldpressedlatinum_prestart()
+{
+	if [ ! -d "${goldpressedlatinum_datadir}/." ]; then
+		goldpressedlatinum_create_datadir || return 1
+	fi
+}
+
+goldpressedlatinum_requirepidfile()
+{
+	if [ ! "0`check_pidfile ${pidfile} ${command}`" -gt 1 ]; then
+		echo "${name} not running? (check $pidfile)."
+		exit 1
+	fi
+}
+
+goldpressedlatinum_stop()
+{
+    goldpressedlatinum_requirepidfile
+
+	echo "Stopping ${name}."
+	eval ${command} -conf=${goldpressedlatinum_config} -datadir=${goldpressedlatinum_datadir} stop
+	wait_for_pids ${rc_pid}
+}
+
+load_rc_config $name
+run_rc_command "$1"

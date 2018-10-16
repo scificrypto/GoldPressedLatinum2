@@ -1,0 +1,5 @@
+goldpressedlatinum-qt usr/bin
+share/pixmaps/goldpressedlatinum32.xpm usr/share/pixmaps
+share/pixmaps/goldpressedlatinum80.xpm usr/share/pixmaps
+debian/goldpressedlatinum-qt.desktop usr/share/applications
+debian/goldpressedlatinum-qt.protocol usr/share/kde4/services/

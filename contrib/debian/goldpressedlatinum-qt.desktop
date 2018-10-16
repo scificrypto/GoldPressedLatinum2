@@ -1,0 +1,13 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=GoldPressedLatinum
+Comment=GoldPressedLatinum P2P Cryptocurrency
+Comment[ru]=GoldPressedLatinum, P2P криптовалюта
+Comment[fr]=GoldPressedLatinum, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=GoldPressedLatinum, eşten eşe kriptografik sanal para birimi
+Exec=/usr/bin/goldpressedlatinum-qt
+Terminal=false
+Type=Application
+Icon=/usr/share/pixmaps/goldpressedlatinum80.xpm
+MimeType=x-scheme-handler/goldpressedlatinum;
+Categories=Office;
