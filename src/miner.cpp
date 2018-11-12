@@ -543,7 +543,7 @@ bool FillMap(CWallet *pwallet, uint32_t nUpperTime, MidstateMap &inputsMap)
 
         CoinsSet setCoins;
         int64_t nValueIn = 0;
-        if (!pwallet->SelectCoinsSimple(nBalance - nReserveBalance, MIN_TX_FEE, MAX_MONEY, nUpperTime, nCoinbaseMaturity * 20, setCoins, nValueIn))
+        if (!pwallet->SelectCoinsSimple(nBalance - nReserveBalance, MIN_TX_FEE, MAX_MONEY, nUpperTime, nCoinbaseMaturity * 10, setCoins, nValueIn))
             return error("FillMap() : SelectCoinsSimple failed");
 
         if (setCoins.empty())
@@ -684,7 +684,7 @@ void ThreadStakeMiner(void* parg)
                     goto _endloop; // Don't be afraid to use a goto if that's the best option.
             }
 
-            while (vNodes.empty() || IsInitialBlockDownload() || vNodes.size() < 1 || nBestHeight < GetNumBlocksOfPeers() - 10)
+            while (vNodes.empty() || IsInitialBlockDownload() || vNodes.size() < 2 || nBestHeight < GetNumBlocksOfPeers() - 10)
             {
                 //fTrySync = true;
 

@@ -2228,7 +2228,7 @@ bool CBlock::AcceptBlock()
     CBlockIndex* pindexPrev = (*mi).second;
     int nHeight = pindexPrev->nHeight+1;
     
-    if (IsProofOfWork() && nHeight > 3000)
+    if (IsProofOfWork() && nHeight > 5000)
              return DoS(100, error("AcceptBlock() : No proof-of-work allowed anymore (height = %d)", nHeight)); 
 
     // Check proof-of-work or proof-of-stake

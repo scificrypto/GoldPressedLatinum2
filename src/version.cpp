@@ -61,7 +61,7 @@ const std::string CLIENT_NAME("GoldPressedLatinum");
 #define GIT_ARCHIVE 1
 #ifdef GIT_ARCHIVE
 #    define GIT_COMMIT_ID ""
-#    define GIT_COMMIT_DATE "15 Oct 2018"
+#    define GIT_COMMIT_DATE "12 Nov 2018"
 #endif
 
 #define BUILD_DESC_FROM_COMMIT(maj,min,rev,commit) \
